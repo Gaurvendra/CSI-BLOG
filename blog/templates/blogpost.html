@@ -1,0 +1,259 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>UPES-CSI</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/vendor.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <!-- script
+    ================================================== -->
+    <script src="{% static 'js/modernizr.js' %}"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+
+</head>
+
+<body id="top">
+
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader" class="dots-fade">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+
+    <!-- header
+    ================================================== -->
+    <header class="s-header header">
+
+        <div class="header__logo">
+            <a class="logo" href="#0">
+                <img src="{% static 'images/logo.png' %}" alt="Homepage">
+            </a>
+        </div> <!-- end header__logo -->
+
+
+        <a class="header__toggle-menu" href="#0" title="Menu"><span>Menu</span></a>
+       <nav class="header__nav-wrap">
+
+           <h2 class="header__nav-heading h6">Navigate to</h2>
+
+           <ul class="header__nav">
+               <li ><a href="{% url 'index' %}" title="">Home</a></li>
+               <li><a href="#" title="">About</a></li>
+               {% if user.is_authenticated %}
+               <li><a href="{% url 'profile' %}" title="">Profile</a></li>
+               <li><a href="{% url 'logout' %}" title="">Logout</a></li>
+               {% else %}
+               <li><a href="{% url 'login' %}" title="">Login</a></li>
+               <li><a href="{% url 'register' %}" title="">Registration</a></li>
+               {% endif %}
+
+           </ul> <!-- end header__nav -->
+
+
+
+           <a href="#0" title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
+
+       </nav> <!-- end header__nav-wrap -->
+
+    </header> <!-- s-header -->
+
+ <!-- s-content
+    ================================================== -->
+    <section class="s-content s-content--top-padding s-content--narrow">
+
+        <article class="row entry format-standard">
+
+            <div class="entry__media col-full">
+                <div class="entry__post-thumb align-center ">
+                    <img src="{{ post.head_image.url }}"
+                         srcset="{{ post.head_image.url }} 2000w,
+                                 {{ post.head_image.url }} 1000w,
+                                 {{ post.head_image.url }} 500w"
+                         sizes="(max-width: 2000px) 100vw, 2000px" alt="">
+                </div>
+            </div>
+
+            <div class="entry__header col-full align-center">
+                <h1 class="entry__header-title display-1 text-center">
+                    {{ post.title }}
+                </h1>
+                <ul class="entry__header-meta">
+                    <li class="date">{{ post.create_date }}</li>
+                    <li class="byline">
+                        By
+                        <a href="#0">{{ post.auther }}</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-full entry__main">
+
+
+                <p>{{ post.content }}</p>
+
+
+
+                <div class="entry__author">
+                    <img src="{{ post.auther.profile.image.url }}" alt="">
+
+                    <div class="entry__author-about">
+                        <h5 class="entry__author-name">
+                            <span>Posted by</span>
+                            <a href="#0">{{ post.auther }}</a>
+                        </h5>
+
+                        <div class="entry__author-desc">
+                            <p>
+                            {{ post.auther.profile.about }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- s-entry__main -->
+
+        </article> <!-- end entry/article -->
+    </section>
+
+
+
+
+
+
+
+
+
+  <!-- s-extra
+    ================================================== -->
+    <section class="s-extra">
+
+        <div class="row">
+
+            <div class="col-seven md-six tab-full popular">
+                <h3>Recent Posts</h3>
+
+                <div class="block-1-2 block-m-full popular__posts">
+                    {% for r in recent %}
+                    <article class="col-block popular__post">
+                        <a href="#0" class="popular__thumb">
+                            <img src="{{ r.head_image.url }}" alt="">
+                        </a>
+                        <h5> <a href="{% url 'blogpost' r.id %}">{{ r.title }}</a></h5>
+                        <section class="popular__meta">
+                            <span class="popular__author"><span>By</span> <a href="#0">{{ r.auther }}</a></span>
+                            <span class="popular__date"><span>on</span> <time datetime="2018-06-14">{{ r.create_date }}</time></span>
+                        </section>
+                    </article>
+                    {% endfor %}
+                </div> <!-- end popular_posts -->
+            </div> <!-- end popular -->
+
+            <div class="col-four md-six tab-full end">
+                <div class="row">
+                    <div class="col-six md-six mob-full categories">
+                        <h3>Categories</h3>
+
+                        <ul class="linklist">
+                             {% for c in cat %}
+
+                            <li><a href="#0">{{c.category}}</a></li>
+                            {% endfor %}
+
+                        </ul>
+                    </div> <!-- end categories -->
+
+
+                </div>
+            </div>
+        </div> <!-- end row -->
+
+    </section> <!-- end s-extra -->
+
+
+
+
+
+
+
+    <!-- s-footer
+    ================================================== -->
+    <footer class="s-footer">
+
+        <div class="s-footer__bottom">
+            <div class="row">
+
+                <div class="col-six">
+                    <ul class="footer-social">
+                        <li>
+                            <a href="#0"><i class="fab fa-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a href="#0"><i class="fab fa-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="#0"><i class="fab fa-instagram"></i></a>
+                        </li>
+                        <li>
+                            <a href="#0"><i class="fab fa-youtube"></i></a>
+                        </li>
+                        <li>
+                            <a href="#0"><i class="fab fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-six">
+                    <div class="s-footer__copyright">
+                        <span>
+
+                            Copyright  <i class="fa fa-copyright" aria-hidden="true"></i><script>
+                                document.write(new Date().getFullYear());
+
+                            </script> All rights reserved by <a href="https://upescsi.in" target="_blank">UPES-CSI</a>
+
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- end s-footer__bottom -->
+
+        <div class="go-top">
+            <a class="smoothscroll" title="Back to Top" href="#top"></a>
+        </div>
+
+    </footer> <!-- end s-footer -->
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+
+    </body>
+
+    </html>
