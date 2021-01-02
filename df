@@ -1,42 +1,70 @@
+
 #include<bits/stdc++.h>
 using namespace std;
-long long arr[101][100003];
+long long arr[101][100003]; // DP matrix
 int main()
-{ 
+{
 
-    long long n,W,maxval=0;
-    cin >> n >> W;
-    long long val[n],wt[n];
+    long long N, W, maxval = 0 ;
+    cin >> N >> W;
+    long long val[N], wt[N];
 
-    for(long long i=0;i<n;i++)
+    for (long long i = 0; i < N; i++)
     {
         cin >> wt[i] >> val[i];
         maxval += val[i];
     }
- 
-    for(long long i=0;i<=maxval;i++)
-        arr[0][i]=1e18;
-    for(long long i=0;i<=n;i++)
-        arr[i][0]=0;
 
-    for(long long i=1;i<=n;i++)
+    for(long long i = 0; i <= maxval; i++)
+        arr[0][i] = 1e18;
+    for(long long i = 0; i <= N; i++)
+        arr[i][0] = 0;
+
+
+    for (long long i = 1; i <= N; i++)
     {
-        for(long long j=1;j<=maxval;j++)
+        for (long long j = 1; i <= maxval; j++)
         {
-            if(val[i-1]>j)
-                arr[i][j] = arr[i-1][j];
+            if(val[i - 1] > j)
+                arr[i][j] = arr[i - 1][j];
             else
-                arr[i][j] = min(arr[i-1][j],wt[i-1]+arr[i-1][j-val[i-1]]);
+                arr[i][j] = min(arr[i - 1][j], wt[i - 1] + arr[i - 1][j - val[i - 1]]);
         }
     }
-   
+
     long long ans;
-    for(long long i=0;i<=maxval;i++)
+    for(long long i = 0; i <= maxval; i++)
     {
 
-        if(arr[n][i]<=W)
+        if(arr[N][i] <= W)
             ans = i;
+
     }
+
     cout << ans << endl;
+
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
