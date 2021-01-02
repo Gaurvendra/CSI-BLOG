@@ -1,6 +1,7 @@
+
 #include<bits/stdc++.h>
 using namespace std;
-long long arr[101][100003];
+long long arr[101][100003]; 
 int main()
 {
 
@@ -19,9 +20,10 @@ int main()
     for(long long i = 0; i <= n; i++)
         arr[i][0] = 0;
 
+
     for(long long i = 1; i <= n; i++)
     {
-        for(long long j = 1; j <= maxval; j++)
+        for (long long j = 1; i <= maxval; j++)
         {
             if(val[i - 1] > j)
                 arr[i][j] = arr[i - 1][j];
@@ -36,7 +38,10 @@ int main()
 
         if(arr[n][i] <= W)
             ans = i;
+
     }
+
     cout << ans << endl;
+
     return 0;
 }
