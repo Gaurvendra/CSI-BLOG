@@ -1,15 +1,14 @@
-
 #include<bits/stdc++.h>
 using namespace std;
-long long arr[101][100003]; // DP matrix
+long long arr[101][100003];
 int main()
 {
 
-    long long N, W, maxval = 0 ;
-    cin >> N >> W;
-    long long val[N], wt[N];
+    long long n, W, maxval = 0;
+    cin >> n >> W;
+    long long val[n], wt[n];
 
-    for (long long i = 0; i < N; i++)
+    for(long long i = 0; i < n; i++)
     {
         cin >> wt[i] >> val[i];
         maxval += val[i];
@@ -17,13 +16,12 @@ int main()
 
     for(long long i = 0; i <= maxval; i++)
         arr[0][i] = 1e18;
-    for(long long i = 0; i <= N; i++)
+    for(long long i = 0; i <= n; i++)
         arr[i][0] = 0;
 
-
-    for (long long i = 1; i <= N; i++)
+    for(long long i = 1; i <= n; i++)
     {
-        for (long long j = 1; i <= maxval; j++)
+        for(long long j = 1; j <= maxval; j++)
         {
             if(val[i - 1] > j)
                 arr[i][j] = arr[i - 1][j];
@@ -36,35 +34,9 @@ int main()
     for(long long i = 0; i <= maxval; i++)
     {
 
-        if(arr[N][i] <= W)
+        if(arr[n][i] <= W)
             ans = i;
-
     }
-
     cout << ans << endl;
-
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
